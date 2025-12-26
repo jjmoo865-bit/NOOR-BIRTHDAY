@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOOR BIRTHDAY</title>
+    <meta name="description" content="A special birthday memory website for Noor">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Color Variables */
+        
+         :root {
+            --primary: oklch(71.43% 0.08255 204.663);
+            --secondary: #6246ea;
+            --accent: #e45858;
+            --highlight: #ff8e3c;
+            --text: #fffffe;
+            --text-light: #e2e8f0;
+            --heart-color: #ff6b6b;
+            --balloon-color: #ff9e7d;
+            --dark-blue: #0f172a;
+            --deep-green: #14532d;
+        }
+        /* Typography Variables */
+        
+         :root {
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-weight-light: 300;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --line-height-normal: 1.6;
+            --line-height-tight: 1.3;
+            --letter-spacing-wide: 0.05em;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* Dynamic Gradient Background */
+        
+        body {
+            font-family: var(--font-body);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background: linear-gradient( 135deg, var(--primary) 0%, var(--dark-blue) 30%, var(--deep-green) 70%, var(--primary) 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /* Floating Elements Container */
+        
+        #floatingElements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+        }
+        
+        .floating-heart {
+            color: var(--heart-color);
+            animation-name: float-animation;
+        }
+        
+        .floating-balloon {
+            color: var(--balloon-color);
+            animation-name: float-animation;
+        }
+        
+        @keyframes float-animation {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate( calc(var(--move-x) * 100px), -100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        /* Content Wrapper */
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+        /* Loading Screen */
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+        
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-text {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text);
+            animation: pulse 2s infinite;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        /* Header */
+        
+        .header {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            overflow: hidden;
+        }
+        
+        .header-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            letter-spacing: var(--letter-spacing-wide);
+            line-height: var(--line-height-tight);
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .typewriter {
+            font-family: var(--font-heading);
+            overflow: hidden;
+            border-right: 2px solid var(--highlight);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.1em;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+            color: var(--text);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        @keyframes typing {
+            from {
+                width: 0
+            }
+            to {
+                width: 100%
+            }
+        }
+        
+        @keyframes blink-caret {
+            from,
+            to {
+                border-color: transparent
+            }
+            50% {
+                border-color: var(--highlight)
+            }
+        }
+        /* Sections */
+        
+        section {
+            min-height: 100vh;
+            padding: 4rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            line-height: var(--line-height-tight);
+            transition: all 0.3s ease;
+        }
+        
+        .section-title:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .section-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-text {
+            font-family: var(--font-body);
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: var(--font-weight-medium);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .section-text:hover {
+            transform: scale(1.01);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        /* Landing Page */
+        
+        .landing {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .start-button {
+            font-family: var(--font-heading);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--highlight) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: var(--font-weight-semibold);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 4px 20px rgba(228, 88, 88, 0.4);
+            position: relative;
+            z-index: 2;
+            letter-spacing: 0.05em;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .start-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(228, 88, 88, 0.6);
+        }
+        /* Image Grid */
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background-color: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(8px);
+        }
+        
+        .image-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 35px rgba(228, 88, 88, 0.5);
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+            padding: 1.5rem 1rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-caption p {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: var(--font-weight-medium);
+            line-height: 1.5;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .image-item:hover .image-caption {
+            transform: translateY(0);
+        }
+        /* Fullscreen Image */
+        
+        .fullscreen-image {
+            width: 100%;
+            height: 60vh;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--highlight);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        
+        .fullscreen-image:hover {
+            transform: scale(1.01);
+        }
+        /* Modal */
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+            border-radius: 12px;
+            border: 2px solid var(--highlight);
+            box-shadow: 0 0 40px rgba(255, 140, 60, 0.4);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: var(--font-weight-bold);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-close:hover {
+            color: var(--highlight);
+            transform: scale(1.1);
+        }
+        /* Progress Indicator */
+        
+        .progress-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.8rem;
+            z-index: 100;
+        }
+        
+        .progress-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--text-light);
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .progress-dot.active {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--highlight) 100%);
+            opacity: 1;
+            transform: scale(1.3);
+            box-shadow: 0 0 15px var(--highlight);
+        }
+        /* Final Page */
+        
+        .final-message {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: var(--line-height-tight);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(228, 88, 88, 0.3);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: var(--letter-spacing-wide);
+            transition: all 0.3s ease;
+        }
+        
+        .final-message:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 20px rgba(228, 88, 88, 0.5);
+        }
+        
+        .highlight {
+            color: var(--highlight);
+            text-shadow: 0 0 15px rgba(255, 140, 60, 0.5);
+        }
+        /* Responsive Adjustments */
+        
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            .fullscreen-image {
+                height: 40vh;
+            }
+            .section-text {
+                font-size: 1.05rem;
+                padding: 0 1rem;
+            }
+            .progress-dot {
+                width: 12px;
+                height: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 2.2rem;
+            }
+            .typewriter {
+                font-size: 1.3rem;
+            }
+            .start-button {
+                padding: 0.8rem 1.8rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating Elements Container -->
+    <div id="floatingElements"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="typewriter">You're all I want</div>
+            <h1 class="header-title">NOOR BIRTHDAY</h1>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Landing Page -->
+            <section id="landing" class="landing">
+                <div class="section-content">
+                    <p class="section-text">A journey through our special moments together</p>
+                    <button class="start-button">Start the journey</button>
+                </div>
+            </section>
+
+            <!-- Chapter 1: The Gift -->
+            <section id="chapter1" class="chapter">
+                <div class="section-content">
+                    <h2 class="section-title">🎁 The Gift</h2>
+                    <p class="section-text">Every moment with you is a precious gift</p>
+
+                    <div class="image-grid">
+                        <div class="image-item">
+                            <img src="photo_2025-12-26_22-37-43.jpg" alt="Gift moment 1 - A beautifully wrapped present with golden ribbon" loading="lazy">
+                            <div class="image-caption">
+                                <p>A simple gift, but a beautiful memory. Something small that carries a meaning, because it represents something I truly love</p>
+                            </div>
+                        </div>
+                        <div class="image-item">
+                            <img src="photo_2025-12-26_22-38-14.jpg" alt="Gift moment 2 - Hands exchanging a small jewelry box" loading="lazy">
+                            <div class="image-caption">
+                                <p>A teddy bear and a star — a funny, sweet gift that came at the perfect time. It made the moment lighter and happier</p>
+                            </div>
+                        </div>
+                        <div class="image-item">
+                            <img src="photo_2025-12-26_22-39-38.jpg" alt="Gift moment 3 - Surprise reaction with colorful balloons in background" loading="lazy">
+                            <div class="image-caption">
+                                <p>You gifted me a chocolate that I still keep to this day. Dated 01/17/2025, a small thing that became a memory I never wanted to let go of</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chapter 2: Eating Together -->
+            <section id="chapter2" class="chapter">
+                <div class="section-content">
+                    <h2 class="section-title">🍽️ Eating Together</h2>
+                    <p class="section-text">Shared meals, shared happiness</p>
+
+                    <div class="image-grid">
+                        <div class="image-item">
+                            <img src="photo_2025-12-26_22-38-06.jpg" alt="Meal moment 1 - Romantic candlelit dinner with wine glasses" loading="lazy">
+                            <div class="image-caption">
+                                <p>We ate snacks and drank juice with our friends, laughing and enjoying every moment. It was simple, but genuinely joyful</p>
+                            </div>
+                        </div>
+                        <div class="image-item">
+                            <img src="photo_2025-12-26_22-40-47.jpg" alt="Meal moment 2 - Breakfast in bed with flowers" loading="lazy">
+                            <div class="image-caption">
+                                <p>We got kicked out of the lecture because we couldn’t stop laughing. So we left, had coffee, and ate cake together turning trouble into a sweet memory</p>
+                            </div>
+                        </div>
+                        <div class="image-item">
+                            <img src="photo_2025-12-26_22-41-12.jpg" alt="Meal moment 3 - Cooking together in the kitchen" loading="lazy">
+                            <div class="image-caption">
+                                <p>We ordered desserts and drank juice together on a day when we were free from all lectures. The time felt light, happy, and special with you</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chapter 3: Playing -->
+            <section id="chapter3" class="chapter">
+                <div class="section-content">
+                    <h2 class="section-title">🎮 Playing</h2>
+                    <p class="section-text">Joyful moments of fun and laughter</p>
+
+                    <img src="photo_2025-12-26_22-41-38.jpg" alt="Playing together - Board game night with smiles and snacks" class="fullscreen-image" loading="lazy">
+                    <p class="section-text">The first gift I ever gave you in my life an UNO game with Minecraft characters. We played together, and it was only the second time we ever sat together, yet the moment felt unforgettable</p>
+                </div>
+            </section>
+
+            <!-- Chapter 4: Walking & Studying Together -->
+            <section id="chapter4" class="chapter">
+                <div class="section-content">
+                    <h2 class="section-title">🚶‍♂️📚 Walking & Studying Together</h2>
+                    <p class="section-text">Side by side in every step of life's journey</p>
+
+                    <div class="image-grid">
+                        <div class="image-item">
+                            <img src="photo_2025-12-26_22-42-02.jpg" alt="Walking together - Holding hands on a sunset beach" loading="lazy">
+                            <div class="image-caption">
+                                <p>We were walking to take you home, me and Mohammed with you. We were all dressed formally, and the moment felt calm and beautiful</p>
+                            </div>
+                        </div>
+                        <div class="image-item">
+                            <img src="photo_2025-12-26_22-42-23.jpg" alt="Studying together - Working side by side at a library table" loading="lazy">
+                            <div class="image-caption">
+                                <p>We were sitting in the lab together, me and you, while Zahraa was sleeping on the stage behind us. We took this photo together — and it became one of the most beautiful memories</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Page -->
+            <section id="final" class="chapter">
+                <div class="section-content">
+                    <h2 class="section-title">Happy Birthday Noor</h2>
+                    <p class="final-message">A memory that lasts <span class="highlight">forever</span></p>
+                    <p class="section-text">Some people don’t just enter our lives, they quietly become a part of our heart. With you, moments don’t fade, they settle gently and stay. Your presence turns silence into comfort, and ordinary days into memories I never want to forget.
+                        I don’t wish you a perfect year, I wish you a year that feels warm, safe, and kind to your heart. And if memories could speak, they would all say the same thing — you were worth every moment. Happy Birthday 🌸✨
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Image Modal -->
+        <div class="modal" id="imageModal">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <img src="" alt="" class="modal-image" id="modalImage">
+            </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-dot" data-section="landing"></div>
+            <div class="progress-dot" data-section="chapter1"></div>
+            <div class="progress-dot" data-section="chapter2"></div>
+            <div class="progress-dot" data-section="chapter3"></div>
+            <div class="progress-dot" data-section="chapter4"></div>
+            <div class="progress-dot" data-section="final"></div>
+        </div>
+    </div>
+
+    <script>
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen after 2 seconds
+            setTimeout(function() {
+                document.querySelector('.loading-screen').classList.add('fade-out');
+                createInitialFloatingElements();
+                setupScrollListener();
+            }, 2000);
+
+            // Create floating elements with different movements
+            function createFloatingElement() {
+                const container = document.getElementById('floatingElements');
+
+                // Heart SVG
+                const heartSVG = `<svg viewBox="0 0 24 24" width="100%" height="100%">
+                    <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>`;
+
+                // Balloon SVG
+                const balloonSVG = `<svg viewBox="0 0 24 24" width="100%" height="100%">
+                    <path fill="currentColor" d="M12 2C13.1 2 14 2.9 14 4s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm6 7c0-2.8-2.2-5-5-5s-5 2.2-5 5c0 1.5.7 2.9 1.8 3.8l.2.2V16c0 .6.4 1 1 1h4c.6 0 1-.4 1-1v-2.9l.2-.2c1.1-.9 1.8-2.3 1.8-3.8z"/>
+                </svg>`;
+
+                const element = document.createElement('div');
+                const isHeart = Math.random() > 0.5;
+                const size = Math.random() * 40 + 20; // 20-60px
+                const duration = Math.random() * 20 + 15; // 15-35s
+                const delay = Math.random() * -30; // Start at different times
+                const left = Math.random() * 100; // Random horizontal position
+                const moveX = (Math.random() * 2 - 1); // -1 to 1 for left/right movement
+
+                element.className = `floating-element ${isHeart ? 'floating-heart' : 'floating-balloon'}`;
+                element.innerHTML = isHeart ? heartSVG : balloonSVG;
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${left}%`;
+                element.style.animationDuration = `${duration}s`;
+                element.style.animationDelay = `${delay}s`;
+                element.style.opacity = Math.random() * 0.5 + 0.3; // 0.3-0.8 opacity
+                element.style.setProperty('--move-x', moveX);
+
+                container.appendChild(element);
+            }
+
+            // Create initial floating elements
+            function createInitialFloatingElements() {
+                const elementCount = window.innerWidth < 768 ? 20 : 40;
+                for (let i = 0; i < elementCount; i++) {
+                    createFloatingElement();
+                }
+            }
+
+            // Create extra elements on scroll
+            function setupScrollListener() {
+                let lastScrollTime = 0;
+                window.addEventListener('scroll', function() {
+                    const now = Date.now();
+                    if (now - lastScrollTime > 1000) { // Throttle to 1 second
+                        lastScrollTime = now;
+                        if (Math.random() > 0.7) { // 30% chance to spawn on scroll
+                            createFloatingElement();
+                        }
+                    }
+                });
+            }
+
+            // Smooth scrolling for navigation
+            document.querySelector('.start-button').addEventListener('click', function() {
+                document.getElementById('chapter1').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+
+            // Image modal functionality
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeModal = document.querySelector('.modal-close');
+            const imageItems = document.querySelectorAll('.image-item img');
+
+            imageItems.forEach(img => {
+                img.addEventListener('click', function() {
+                    modal.classList.add('active');
+                    modalImg.src = this.src;
+                    modalImg.alt = this.alt;
+                });
+            });
+
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            // Intersection Observer for section animations and progress dots
+            const sections = document.querySelectorAll('section');
+            const progressDots = document.querySelectorAll('.progress-dot');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+
+                        // Update progress dots
+                        const sectionId = entry.target.id;
+                        progressDots.forEach(dot => {
+                            dot.classList.remove('active');
+                            if (dot.dataset.section === sectionId) {
+                                dot.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Progress dots navigation
+            progressDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const sectionId = this.dataset.section;
+                    document.getElementById(sectionId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Optimize performance by reducing animations when tab is inactive
+            document.addEventListener('visibilitychange', function() {
+                const elements = document.querySelectorAll('.floating-element');
+                if (document.hidden) {
+                    elements.forEach(el => {
+                        el.style.animationPlayState = 'paused';
+                    });
+                } else {
+                    elements.forEach(el => {
+                        el.style.animationPlayState = 'running';
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        // Floating Elements Animation - Add this script before </body>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create container for floating elements
+            const floatingContainer = document.createElement('div');
+            floatingContainer.id = 'floatingElements';
+            floatingContainer.style.position = 'fixed';
+            floatingContainer.style.top = '0';
+            floatingContainer.style.left = '0';
+            floatingContainer.style.width = '100%';
+            floatingContainer.style.height = '100%';
+            floatingContainer.style.pointerEvents = 'none';
+            floatingContainer.style.zIndex = '1';
+            floatingContainer.style.overflow = 'hidden';
+            document.body.appendChild(floatingContainer);
+
+            // Add CSS styles for the animation
+            const style = document.createElement('style');
+            style.textContent = `
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+        }
+        .floating-heart {
+            color: #ff6b6b;
+            animation-name: float-animation;
+        }
+        .floating-balloon {
+            color: #ff9e7d;
+            animation-name: float-animation;
+        }
+        @keyframes float-animation {
+            0% { transform: translate(0, 100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translate(calc(var(--move-x) * 100px), -100px) rotate(360deg); opacity: 0; }
+        }
+    `;
+            document.head.appendChild(style);
+
+            // Create floating elements
+            function createFloatingElement() {
+                const container = document.getElementById('floatingElements');
+                const isHeart = Math.random() > 0.5;
+                const size = Math.random() * 30 + 15;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * -20;
+                const left = Math.random() * 100;
+                const moveX = (Math.random() * 2 - 1);
+                const opacity = Math.random() * 0.5 + 0.3;
+
+                const element = document.createElement('div');
+                element.className = `floating-element ${isHeart ? 'floating-heart' : 'floating-balloon'}`;
+                element.innerHTML = isHeart ?
+                    '<svg viewBox="0 0 24 24" width="100%" height="100%"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>' :
+                    '<svg viewBox="0 0 24 24" width="100%" height="100%"><path fill="currentColor" d="M12 2C13.1 2 14 2.9 14 4s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm6 7c0-2.8-2.2-5-5-5s-5 2.2-5 5c0 1.5.7 2.9 1.8 3.8l.2.2V16c0 .6.4 1 1 1h4c.6 0 1-.4 1-1v-2.9l.2-.2c1.1-.9 1.8-2.3 1.8-3.8z"/></svg>';
+
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${left}%`;
+                element.style.animationDuration = `${duration}s`;
+                element.style.animationDelay = `${delay}s`;
+                element.style.opacity = opacity;
+                element.style.setProperty('--move-x', moveX);
+
+                container.appendChild(element);
+            }
+
+            // Initialize animation
+            function initAnimation() {
+                const count = window.innerWidth < 768 ? 15 : 30;
+                for (let i = 0; i < count; i++) {
+                    createFloatingElement();
+                }
+
+                // Add new elements periodically
+                setInterval(() => {
+                    if (Math.random() > 0.5) createFloatingElement();
+                }, 3000);
+
+                // Pause when tab is inactive
+                document.addEventListener('visibilitychange', function() {
+                    const elements = document.querySelectorAll('.floating-element');
+                    const playState = document.hidden ? 'paused' : 'running';
+                    elements.forEach(el => el.style.animationPlayState = playState);
+                });
+            }
+
+            initAnimation();
+        });
+    </script>
+</body>
+
+</html>
